@@ -1,0 +1,8 @@
+{
+  "id": "number",
+  "pic": ["string"],
+  "name": "string",
+  "pos": [{"address": "string", "type": "string", "name": "string", "price": "number"}],
+  "createdAt": "string",
+  "modifiedAt": "string"
+}
