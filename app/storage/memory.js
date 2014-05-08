@@ -26,8 +26,23 @@ mem.get = function(id, callback) {
   }
 };
 
+mem.find = function(filter, callback) {
+  callback(null, m.filter(function(mx) {
+    for(var f in filter) {
+      if(!mx.hasOwnProperty(f)) {
+        return false;
+      } else {
+        if(!mx[f] || mx[f] !== filter[f]) {
+          return false;
+        }
+      }
+    }
+    return true;
+  }));
+};
+
 mem.update = function(id, data, callback) {
-  mem.get(id, function(err, res) {
+  mem.get(id, function(err) {
     if(err) {
       callback(err);
     } else {
@@ -38,7 +53,7 @@ mem.update = function(id, data, callback) {
 };
 
 mem.remove = function(id, callback) {
-  mem.get(id, function(err, res) {
+  mem.get(id, function(err) {
     if(err) {
       callback(err);
     } else {

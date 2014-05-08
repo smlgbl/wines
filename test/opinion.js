@@ -165,7 +165,7 @@ describe("Opinions module", function() {
   });
 
   it("Remove a like from an opinion - that was never liked", function(done) {
-    opinions.unlike(savedId, 1, function(err, res) {
+    opinions.unlike(savedId, 1, function(err) {
       expect(err).to.not.be.null();
       expect(err).to.have.a.property("message", "Never liked");
       done();
@@ -181,10 +181,41 @@ describe("Opinions module", function() {
     });
   });
 
-  it("Get opinions for wine");
-  it("Get opinions for user");
-  it("Remove opinions by user");
-  it("Remove opinions for wine");
+  it("Get opinions for wine", function(done) {
+    opinions.getForWine(1, function(err, res) {
+      expect(err).to.be.null();
+      expect(res).to.be.an.instanceof(Array);
+      expect(res).have.a.property('length', 1);
+      done();
+    });
+  });
+
+  it("Get opinions for non-existant wine", function(done) {
+    opinions.getForWine(13, function(err, res) {
+      expect(err).to.be.null();
+      expect(res).to.be.an.instanceof(Array);
+      expect(res).have.a.property('length', 0);
+      done();
+    });
+  });
+
+  it("Get opinions for user", function(done) {
+    opinions.getForUser(1, function(err, res) {
+      expect(err).to.be.null();
+      expect(res).to.be.an.instanceof(Array);
+      expect(res).have.a.property('length', 1);
+      done();
+    });
+  });
+
+  it("Get opinions for non-existant user", function(done) {
+    opinions.getForUser(13, function(err, res) {
+      expect(err).to.be.null();
+      expect(res).to.be.an.instanceof(Array);
+      expect(res).have.a.property('length', 0);
+      done();
+    });
+  });
 
   it("Remove an opinion", function(done) {
     opinions.remove(savedId, function(err, res) {
